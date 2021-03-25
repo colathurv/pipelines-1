@@ -120,7 +120,7 @@ pipelines:
         type: Bash
         configuration:
           environmentVariables:
-            dockerImageName: vjnpipelines.jfrog.io/docker-local/app. # PREREQ(REHYDRATION):  Change the server name to your environment's
+            dockerImageName: vjnpipelines.jfrog.io/docker-local/app # PREREQ(REHYDRATION):  Change the server name to your environment's
             dockerImageTag: ${run_number}
           inputResources:
             - name: be_gitRepo
