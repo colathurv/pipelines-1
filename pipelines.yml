@@ -3,12 +3,12 @@ resources:
     type: GitRepo
     configuration:
       path: sdemo/go-service
-      gitProvider: GITHUB_INT
+      gitProvider: GITHUB_INT # <-- PREREQ: This Integration to GITHUB should be created in order to run this pipeline 
 
   - name: gosvc_build_info
     type: BuildInfo
     configuration:
-      sourceArtifactory: ARTFY_INT
+      sourceArtifactory: ARTFY_INT # <-- PREREQ: This Integration to Artifactory should be created in order to run this pipeline
       buildName: svc_build
       buildNumber: 1
 
@@ -23,7 +23,7 @@ resources:
     type: GitRepo
     configuration:
       path: sdemo/java-backend
-      gitProvider: GITHIB_INT
+      gitProvider: GITHIB_INT 
 
   - name: appl_build_info_output
     type: BuildInfo
@@ -83,7 +83,7 @@ pipelines:
         configuration:
           npmArgs: --no-progress --no-audit
           sourceLocation: .
-          repositoryName: npm-virtual
+          repositoryName: npm-virtual # <-- PREREQ: Create 3 repositories: npm (type LOCAL), npm-remote (type REMOTE) and npm-virtual (type VIRTUAL). Have npm-virtual aggregate the local and remote, in that order.  
           inputResources:
             - name: fe_gitRepo
           integrations:
