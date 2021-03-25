@@ -23,7 +23,7 @@ resources:
     type: GitRepo
     configuration:
       path: sdemo/java-backend
-      gitProvider: GITHIB_INT 
+      gitProvider: GITHUB_INT 
 
   - name: appl_build_info_output
     type: BuildInfo
