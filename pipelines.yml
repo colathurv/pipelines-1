@@ -3,19 +3,19 @@ resources:
     type: GitRepo
     configuration:
       path: sdemo/go-service
-      gitProvider: demo_github
+      gitProvider: GITHUB_INT
 
   - name: gosvc_build_info
     type: BuildInfo
     configuration:
-      sourceArtifactory: demo_art
+      sourceArtifactory: ARTFY_INT
       buildName: svc_build
       buildNumber: 1
 
   - name: gosvc_promoted_build_info
     type: BuildInfo
     configuration:
-      sourceArtifactory: demo_art
+      sourceArtifactory: ARTFY_INT
       buildName: svc_build
       buildNumber: 1
 
@@ -23,26 +23,26 @@ resources:
     type: GitRepo
     configuration:
       path: sdemo/java-backend
-      gitProvider: demo_github
+      gitProvider: GITHIB_INT
 
   - name: appl_build_info_output
     type: BuildInfo
     configuration:
-      sourceArtifactory: demo_art
+      sourceArtifactory: ARTFY_INT
       buildName: backend_build
       buildNumber: 1
 
   - name: appl_build_info
     type: BuildInfo
     configuration:
-      sourceArtifactory: demo_art
+      sourceArtifactory: ARTFY_INT
       buildName: backend_build
       buildNumber: 1
 
   - name: appl_promoted_build_info
     type: BuildInfo
     configuration:
-      sourceArtifactory: demo_art
+      sourceArtifactory: ARTFY_INT
       buildName: backend_build
       buildNumber: 1
 
@@ -50,17 +50,10 @@ resources:
     type: GitRepo
     configuration:
       path: sdemo/vue-frontend
-      gitProvider: demo_github
-
-  - name: release_bundle
-    type: ReleaseBundle
-    configuration:
-      sourceDistribution: demoDist
-      name: demo_rb
-      version: v1.0.0
+      gitProvider: GITHUB_INT
 
 pipelines:
-  - name: demo_application
+  - name: swampup2021_demo_app
     steps:
       - name: bld_backend
         type: MvnBuild
@@ -72,7 +65,7 @@ pipelines:
           inputResources:
             - name: be_gitRepo
           integrations:
-            - name: demo_art
+            - name: ARTFY_INT
           runtime:
             type: image
             image:
@@ -94,7 +87,7 @@ pipelines:
           inputResources:
             - name: fe_gitRepo
           integrations:
-            - name: demo_art
+            - name: ARTFY_INT
 
       - name: pack_frontend
         type: Bash
@@ -102,7 +95,7 @@ pipelines:
           inputSteps:
             - name: bld_frontend
           integrations:
-            - name: demo_art
+            - name: ARTFY_INT
         execution:
           onStart:
             - export tempStateLocation="$step_tmp_dir/npmSourceState"
@@ -118,7 +111,7 @@ pipelines:
           inputSteps:
             - name: pack_frontend
           integrations:
-            - name: demo_art
+            - name: ARTFY_INT
         execution:
           onStart:
             - export inputNpmBuildStepName="bld_frontend"
@@ -127,8 +120,7 @@ pipelines:
         type: Bash
         configuration:
           environmentVariables:
-#             dockerImageName: avinci-docker-local.jfrog.io/app
-            dockerImageName: 146.148.104.158:8082/docker-local/app
+            dockerImageName: vjnpipelines.jfrog.io/docker-local/app
             dockerImageTag: ${run_number}
           inputResources:
             - name: be_gitRepo
@@ -137,7 +129,7 @@ pipelines:
             - name: bld_backend
             - name: publish_frontend
           integrations:
-            - name: demo_art
+            - name: ARTFY_INT
         execution:
           onStart:
             - rm -rf $run_dir/workspace/jfrog
@@ -164,7 +156,7 @@ pipelines:
         configuration:
           targetRepository: docker
           integrations:
-            - name: demo_art
+            - name: ARTFY_INT
           inputResources:
             - name: appl_build_info
           outputResources:
