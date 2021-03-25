@@ -2,13 +2,13 @@ resources:
   - name: gosvc_gitRepo
     type: GitRepo
     configuration:
-      path: sdemo/go-service
-      gitProvider: GITHUB_INT # <-- PREREQ 1: This Integration to GITHUB should be created in order to run this pipeline 
+      path: colathurv/go-service # <-- PREREQ: Fork repository sdemo/go-service to your github organization and mention fullpath
+      gitProvider: GITHUB_INT # <-- PREREQ: This Integration to GITHUB should be created in order to run this pipeline 
 
   - name: gosvc_build_info
     type: BuildInfo
     configuration:
-      sourceArtifactory: ARTFY_INT # <-- PREREQ 2: This Integration to Artifactory should be created in order to run this pipeline
+      sourceArtifactory: ARTFY_INT # <-- PREREQ: This Integration to Artifactory should be created in order to run this pipeline
       buildName: svc_build
       buildNumber: 1
 
@@ -22,7 +22,7 @@ resources:
   - name: be_gitRepo
     type: GitRepo
     configuration:
-      path: sdemo/java-backend
+      path: colathurv/java-backend # <-- PREREQ: Fork repository sdemo/java-backend to your github organization and mention fullpath
       gitProvider: GITHUB_INT 
 
   - name: appl_build_info_output
@@ -49,7 +49,7 @@ resources:
   - name: fe_gitRepo
     type: GitRepo
     configuration:
-      path: sdemo/vue-frontend
+      path: colathurv/vue-frontend # <-- PREREQ: Fork repository sdemo/vue-frontend to your github organization and mention fullpath
       gitProvider: GITHUB_INT
 
 pipelines:
@@ -83,7 +83,7 @@ pipelines:
         configuration:
           npmArgs: --no-progress --no-audit
           sourceLocation: .
-          repositoryName: npm-virtual # <-- PREREQ 3: Create 3 repositories: npm-local (type LOCAL), npm-remote (type REMOTE) and npm-virtual (type VIRTUAL). Have npm-virtual aggregate the local and remote, in that order.  
+          repositoryName: npm-virtual # <-- PREREQ: Create 3 repositories: npm-local (type LOCAL), npm-remote (type REMOTE) and npm-virtual (type VIRTUAL). Have npm-virtual aggregate the local and remote, in that order.  
           inputResources:
             - name: fe_gitRepo
           integrations:
@@ -120,7 +120,7 @@ pipelines:
         type: Bash
         configuration:
           environmentVariables:
-            dockerImageName: vjnpipelines.jfrog.io/docker-local/app. # PREREQ 4 (REHYDRATION):  Change the server name to your environment's
+            dockerImageName: vjnpipelines.jfrog.io/docker-local/app. # PREREQ(REHYDRATION):  Change the server name to your environment's
             dockerImageTag: ${run_number}
           inputResources:
             - name: be_gitRepo
@@ -154,7 +154,7 @@ pipelines:
       - name: promote_app_build
         type: PromoteBuild
         configuration:
-          targetRepository: docker-virtual # <-- PREREQ 5: Create 3 repositories: docker-local (type LOCAL), docker-remote (type REMOTE) and docker-virtual (type VIRTUAL). Have docker-virtual aggregate the local and remote, in that order. 
+          targetRepository: docker-virtual # <-- PREREQ: Create 3 repositories: docker-local (type LOCAL), docker-remote (type REMOTE) and docker-virtual (type VIRTUAL). Have docker-virtual aggregate the local and remote, in that order. 
           integrations:
             - name: ARTFY_INT
           inputResources:
