@@ -59,31 +59,6 @@ resources:
       name: demo_rb
       version: v1.0.0
 
-  - name: signed_bundle
-    type: ReleaseBundle
-    configuration:
-      sourceDistribution: demoDist
-      name: demo_rb
-      version: v1.0.0
-
-  - name: distribution_rules
-    type: DistributionRule
-    configuration:
-      sourceDistribution: demoDist
-      serviceName: "*"
-      siteName: "*"
-      cityName: "*"
-      countryCodes:
-        - "CN"
-        - "GB"
-
-  - name: deploy_vm
-    type: VmCluster
-    configuration:
-      sshKey: demo_ssh
-      targets:
-        - 130.211.121.141
-
 pipelines:
   - name: demo_application
     steps:
