@@ -135,6 +135,8 @@ pipelines:
             - rm -rf $run_dir/workspace/jfrog
             - retry_command jfrog rt config --url $int_ARTFY_INT_url --user $int_ARTFY_INT_user --apikey $int_ARTFY_INT_apikey --interactive=false
             - pushd $res_be_gitRepo_resourcePath
+            - jfrog rt dl npm-local/frontend/-/frontend-3.0.0.tgz client.tgz --flat
+            - jfrog rt dl libs-release-local/com/jfrog/backend/1.0.0/backend-1.0.0.jar server.jar --flat
             - add_run_variables buildStepName=${step_name}
             - add_run_variables ${step_name}_buildNumber=${run_number}
             - add_run_variables ${step_name}_buildName=${pipeline_name}
