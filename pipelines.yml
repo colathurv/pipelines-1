@@ -133,6 +133,7 @@ pipelines:
         execution:
           onStart:
             - rm -rf $run_dir/workspace/jfrog
+            # <-- PREREQ (REHYDRATE int_XX_url, int_XX_user and int_XX_apikey by replacing XX by the name of the Artifactory Integration) 
             - retry_command jfrog rt config --url $int_ARTFY_INT_url --user $int_ARTFY_INT_user --apikey $int_ARTFY_INT_apikey --interactive=false
             - pushd $res_be_gitRepo_resourcePath
             - jfrog rt dl npm-local/frontend/-/frontend-3.0.0.tgz client.tgz --flat
