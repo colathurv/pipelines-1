@@ -60,7 +60,9 @@ pipelines:
         configuration:
           sourceLocation: .
           mvnCommand: clean install -ntp
+          resolverSnapshotRepo: libs-snapshot
           resolverReleaseRepo: libs-release
+          deployerSnapshotRepo: libs-snapshot-local
           deployerReleaseRepo: libs-release-local
           inputResources:
             - name: be_gitRepo
