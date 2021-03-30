@@ -60,8 +60,8 @@ pipelines:
         configuration:
           sourceLocation: .
           mvnCommand: clean install -ntp
-          configFileLocation: .
-          configFileName: mvn-art-config
+          resolverReleaseRepo: libs-release
+          deployerReleaseRepo: libs-release-local
           inputResources:
             - name: be_gitRepo
           integrations:
