@@ -53,7 +53,7 @@ resources:
       gitProvider: GITHUB_INT
 
 pipelines:
-  - name: swampup2021_demo_app_pipeline
+  - name: test_pipeline
     steps:
       - name: bld_backend
         type: MvnBuild
