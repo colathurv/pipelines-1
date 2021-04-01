@@ -40,7 +40,7 @@ pipelines:
           sourceLocation: .
           mvnCommand: clean install -ntp
           resolverSnapshotRepo: libs-snapshot
-          resolverReleaseRepo: libs-release
+          resolverReleaseRepo: libs-release-virtual
           deployerSnapshotRepo: libs-snapshot-local
           deployerReleaseRepo: libs-release-local
           inputResources:
